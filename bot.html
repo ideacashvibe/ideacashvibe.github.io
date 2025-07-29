@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ideacashvibe</title>
+  <!-- Улучшенные шрифты с большей выразительностью -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=Oswald:wght@700&family=Montserrat:wght@900&family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Улучшенные типографические переменные */
+      --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-heading: 'Montserrat', 'Inter', sans-serif;
+      --font-display: 'Playfair Display', serif;
+      --font-logo: 'Bebas Neue', 'Anton', sans-serif; /*Интересный шрифт для логотипа*/
+      
+      /* Размеры шрифтов */
+      --text-xs: 0.75rem;
+      --text-sm: 0.875rem;
+      --text-base: 1rem;
+      --text-lg: 1.125rem;
+      --text-xl: 1.25rem;
+      --text-2xl: 1.5rem;
+      --text-3xl: 1.875rem;
+      --text-4xl: 2.5rem;
+      --text-5xl: 3.5rem;
+      --text-6xl: 4.5rem;
+      --text-7xl: 6rem;
+      
+      /* Высота строк */
+      --leading-tight: 1.1;
+      --leading-snug: 1.2;
+      --leading-normal: 1.5;
+      --leading-relaxed: 1.6;
+      
+      /* Цвета */
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --accent-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+      --accent-gold: linear-gradient(45deg, #ffd700, #ffa500);
+      --accent-neon: linear-gradient(45deg, #00ffff, #00ffaa);
+      --fragment-gradient: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+      --text-primary: #2d3748;
+      --text-secondary: #4a5568;
+      --text-light: #718096;
+      --text-very-light: #a0aec0;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f7fafc;
+      --card-bg: #ffffff;
+      --shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      --border-radius: 20px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dark-theme {
+      --text-primary: #f7fafc;
+      --text-secondary: #e2e8f0;
+      --text-light: #cbd5e0;
+      --text-very-light: #a0aec0;
+      --bg-primary: #1a202c;
+      --bg-secondary: #2d3748;
+      --card-bg: #2d3748;
+      --shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    body {
+      font-family: var(--font-primary);
+      font-size: var(--text-base);
+      line-height: var(--leading-normal);
+      color: var(--text-primary);
+      background: var(--primary-gradient);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: var(--transition);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      background: var(--bg-primary);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--card-bg);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      transition: var(--transition);
+      z-index: 100;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    .header {
+      background: var(--accent-gradient);
+      color: white;
+      padding: 60px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Улучшенное оформление названия - разрезанное на части */
+    .logo-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px 25px;
+      margin-bottom: 25px;
+      padding: 0 20px;
+    }
+
+    .logo-part {
+      font-family: var(--font-logo);
+      font-size: var(--text-7xl);
+      font-weight: 900;
+      text-shadow: 
+        4px 4px 0 rgba(0,0,0,0.25),
+        8px 8px 0 rgba(0,0,0,0.15);
+      letter-spacing: 1px;
+      line-height: var(--leading-tight);
+      position: relative;
+      z-index: 2;
+      animation: float 3s ease-in-out infinite;
+      text-align: center;
+    }
+
+    .logo-part.idea {
+      background: var(--accent-gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation-delay: 0s;
+    }
+
+    .logo-part.cash {
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation-delay: 0.5s;
+    }
+
+    .logo-part.vibe {
+      background: var(--fragment-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation-delay: 1s;
+    }
+
+    /* Анимация плавания частей */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Осколки между частями */
+    .fragment {
+      position: relative;
+      width: 25px;
+      height: 25px;
+      background: var(--fragment-gradient);
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      transform: rotate(180deg);
+      flex-shrink: 0;
+      animation: spin 4s linear infinite;
+      box-shadow: 0 0 15px rgba(255, 154, 158, 0.7);
+    }
+
+    .fragment:nth-child(2) {
+      background: var(--accent-gold);
+      clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+      transform: rotate(0deg);
+      animation: spinReverse 5s linear infinite;
+      width: 20px;
+      height: 20px;
+    }
+
+    .fragment:last-child {
+      background: var(--primary-gradient);
+      clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
+      transform: rotate(90deg);
+      animation: spin 6s linear infinite reverse;
+      width: 18px;
+      height: 18px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(180deg); }
+      100% { transform: rotate(540deg); }
+    }
+
+    @keyframes spinReverse {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(-360deg); }
+    }
+
+    /* Специальные стили для темной темы */
+    .dark-theme .logo-part.idea {
+      background: var(--accent-neon);
+      animation: glowDark 3s ease-in-out infinite alternate;
+    }
+
+    .dark-theme .logo-part.cash {
+      background: linear-gradient(45deg, #ff6b6b, #ffa500);
+      animation: glowDarkRed 3s ease-in-out infinite alternate;
+    }
+
+    .dark-theme .logo-part.vibe {
+      background: linear-gradient(45deg, #667eea, #00ffff);
+      animation: glowDarkBlue 3s ease-in-out infinite alternate;
+    }
+
+    .dark-theme .fragment {
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+    }
+
+    .dark-theme .fragment:nth-child(2) {
+      box-shadow: 0 0 20px rgba(255, 107, 107, 0.8);
+    }
+
+    .dark-theme .fragment:last-child {
+      box-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+    }
+
+    @keyframes glowDark {
+      from {
+        text-shadow: 
+          4px 4px 0 rgba(0,0,0,0.3),
+          8px 8px 0 rgba(0,0,0,0.2),
+          0 0 15px rgba(0, 255, 255, 0.5);
+      }
+      to {
+        text-shadow: 
+          4px 4px 0 rgba(0,0,0,0.3),
+          8px 8px 0 rgba(0,0,0,0.2),
+          0 0 25px rgba(0, 255, 255, 0.8),
+          0 0 40px rgba(0, 255, 170, 0.6);
+      }
+    }
+
+    @keyframes glowDarkRed {
+      from {
+        text-shadow: 
+          4px 4px 0 rgba(0,0,0,0.3),
+          8px 8px 0 rgba(0,0,0,0.2),
+          0 0 15px rgba(255, 107, 107, 0.5);
+      }
+      to {
+        text-shadow: 
+          4px 4px 0 rgba(0,0,0,0.3),
+          8px 8px 0 rgba(0,0,0,0.2),
+          0 0 25px rgba(255, 107, 107, 0.8),
+          0 0 40px rgba(255, 165, 0, 0.6);
+      }
+    }
+
+    @keyframes glowDarkBlue {
+      from {
+        text-shadow: 
+          4px 4px 0 rgba(0,0,0,0.3),
+          8px 8px 0 rgba(0,0,0,0.2),
+          0 0 15px rgba(102, 126, 234, 0.5);
+      }
+      to {
+        text-shadow: 
+          4px 4px 0 rgba(0,0,0,0.3),
+          8px 8px 0 rgba(0,0,0,0.2),
+          0 0 25px rgba(102, 126, 234, 0.8),
+          0 0 40px rgba(0, 255, 255, 0.6);
+      }
+    }
+
+    .tagline {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 400;
+      opacity: 0.95;
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: var(--leading-snug);
+      font-style: italic;
+      letter-spacing: 0.5px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .content {
+      padding: 45px 30px;
+    }
+
+    .section {
+      margin-bottom: 45px;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: var(--text-4xl);
+      font-weight: 800;
+      margin-bottom: 25px;
+      color: var(--text-primary);
+      text-align: center;
+      position: relative;
+      line-height: var(--leading-tight);
+      letter-spacing: -0.5px;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--accent-gradient);
+      margin: 15px auto;
+      border-radius: 2px;
+    }
+
+    .description {
+      font-size: var(--text-lg);
+      line-height: var(--leading-relaxed);
+      margin-bottom: 35px;
+      color: var(--text-secondary);
+      text-align: center;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 400;
+    }
+
+    .numbered-list {
+      max-width: 750px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+
+    .numbered-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 30px;
+      padding: 25px;
+      background: var(--bg-secondary);
+      border-radius: 15px;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .dark-theme .numbered-item {
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .numbered-item:hover {
+      transform: translateX(8px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .number {
+      min-width: 42px;
+      height: 42px;
+      background: var(--primary-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: white;
+      font-size: var(--text-base);
+      margin-right: 25px;
+      flex-shrink: 0;
+      font-family: var(--font-heading);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .number-content h3 {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+      line-height: var(--leading-snug);
+      letter-spacing: -0.3px;
+    }
+
+    .number-content p {
+      font-size: var(--text-base);
+      color: var(--text-secondary);
+      line-height: var(--leading-relaxed);
+      margin: 0;
+      font-weight: 400;
+    }
+
+    .brand-concept {
+      background: var(--bg-secondary);
+      padding: 35px;
+      border-radius: 15px;
+      margin: 35px 0;
+    }
+
+    .dark-theme .brand-concept {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 25px;
+    }
+
+    .concept-item {
+      text-align: center;
+      padding: 30px 25px;
+      transition: var(--transition);
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .dark-theme .concept-item {
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .concept-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+
+    .concept-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .concept-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: var(--text-xl);
+      margin-bottom: 15px;
+      color: var(--text-primary);
+      line-height: var(--leading-snug);
+    }
+
+    .concept-desc {
+      font-size: var(--text-sm);
+      color: var(--text-light);
+      line-height: var(--leading-relaxed);
+    }
+
+    .links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 45px 0;
+    }
+
+    .link-card {
+      flex: 1;
+      min-width: 240px;
+      max-width: 300px;
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      transition: var(--transition);
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dark-theme .link-card {
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .link-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent-gradient);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+      transform-origin: left;
+    }
+
+    .link-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.2);
+      border-color: rgba(255, 107, 107, 0.5);
+    }
+
+    .link-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .link-icon {
+      font-size: 3.5rem;
+      margin-bottom: 25px;
+    }
+
+    .telegram { color: #0088cc; }
+    .pinterest { color: #e60023; }
+
+    .link-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: var(--text-2xl);
+      margin-bottom: 15px;
+      color: var(--text-primary);
+      line-height: var(--leading-snug);
+    }
+
+    .link-desc {
+      font-size: var(--text-sm);
+      color: var(--text-light);
+      margin-bottom: 25px;
+      line-height: var(--leading-relaxed);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 35px;
+      background: var(--primary-gradient);
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: var(--text-sm);
+      font-family: var(--font-heading);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .disclaimer {
+      background: var(--bg-secondary);
+      border-left: 5px solid #ff6b6b;
+      padding: 30px;
+      margin-top: 45px;
+      border-radius: 0 15px 15px 0;
+      font-size: var(--text-xs);
+      line-height: var(--leading-relaxed);
+      color: var(--text-light);
+    }
+
+    .dark-theme .disclaimer {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px;
+      background: var(--bg-secondary);
+      color: var(--text-light);
+      font-size: var(--text-sm);
+      font-weight: 500;
+    }
+
+    .dark-theme .footer {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      :root {
+        --text-6xl: 3.5rem;
+        --text-7xl: 4rem;
+        --text-5xl: 2.5rem;
+        --text-4xl: 2rem;
+        --text-3xl: 1.6rem;
+        --text-2xl: 1.3rem;
+      }
+      
+      .header {
+        padding: 40px 20px;
+      }
+      
+      .logo-part {
+        font-size: var(--text-6xl);
+      }
+      
+      .fragment {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .fragment:nth-child(2) {
+        width: 16px;
+        height: 16px;
+      }
+      
+      .fragment:last-child {
+        width: 14px;
+        height: 14px;
+      }
+      
+      .tagline {
+        font-size: var(--text-xl);
+      }
+      
+      .section-title {
+        font-size: var(--text-3xl);
+      }
+      
+      .description {
+        font-size: var(--text-base);
+      }
+      
+      .links {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      
+      .link-card {
+        width: 100%;
+        max-width: 350px;
+        padding: 30px 25px;
+      }
+      
+      .content {
+        padding: 30px 20px;
+      }
+      
+      .theme-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+        top: 15px;
+        right: 15px;
+      }
+      
+      .numbered-item {
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      
+      .number {
+        min-width: 36px;
+        height: 36px;
+        font-size: var(--text-sm);
+        margin-right: 20px;
+      }
+      
+      .number-content h3 {
+        font-size: var(--text-xl);
+      }
+    }
+
+    @media (max-width: 480px) {
+      :root {
+        --text-6xl: 2.5rem;
+        --text-7xl: 3rem;
+        --text-5xl: 2rem;
+        --text-4xl: 1.7rem;
+        --text-3xl: 1.4rem;
+      }
+      
+      .logo-container {
+        gap: 10px 15px;
+      }
+      
+      .logo-part {
+        font-size: var(--text-5xl);
+        text-shadow: 
+          3px 3px 0 rgba(0,0,0,0.2),
+          6px 6px 0 rgba(0,0,0,0.1);
+      }
+      
+      .fragment {
+        width: 15px;
+        height: 15px;
+      }
+      
+      .fragment:nth-child(2) {
+        width: 12px;
+        height: 12px;
+      }
+      
+      .fragment:last-child {
+        width: 10px;
+        height: 10px;
+      }
+      
+      .tagline {
+        font-size: var(--text-lg);
+      }
+      
+      .section-title {
+        font-size: var(--text-2xl);
+      }
+      
+      .description {
+        font-size: var(--text-sm);
+      }
+      
+      .link-card {
+        padding: 25px 20px;
+      }
+      
+      .concept-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .concept-item {
+        padding: 20px;
+      }
+      
+      .numbered-item {
+        flex-direction: column;
+      }
+      
+      .number {
+        margin-bottom: 20px;
+        margin-right: 0;
+      }
+      
+      .disclaimer {
+        padding: 20px;
+        margin-top: 30px;
+      }
+    }
+
+    /* Анимации */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      animation: fadeInUp 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <div class="container">
+    <div class="header">
+      <div class="logo-container">
+        <div class="logo-part idea">IDEA</div>
+        <div class="fragment"></div>
+        <div class="logo-part cash">CASH</div>
+        <div class="fragment"></div>
+        <div class="logo-part vibe">VIBE</div>
+        <div class="fragment"></div>
+      </div>
+      <p class="tagline">Качественные фото для эдиторов и фанатов</p>
+    </div>
+    
+    <div class="content">
+      <div class="section">
+        <h2 class="section-title">О проекте</h2>
+        <p class="description">
+          ideacashvibe — это креативная платформа, которая объединяет творческих людей 
+          вокруг качественного визуального контента. Мы собираем и делимся фото стримерш, 
+          блогерш и тиктокерш в высоком разрешении для создания потрясающих эдитов, 
+          вдохновляющего контента и профессиональных работ.
+        </p>
+      </div>
+
+      <!-- Пункты 1, 2, 3 -->
+      <div class="section">
+        <h2 class="section-title">Почему ideacashvibe?</h2>
+        <div class="numbered-list">
+          <div class="numbered-item">
+            <div class="number">1</div>
+            <div class="number-content">
+              <h3>Высокое качество контента</h3>
+              <p>Все фото предоставляются в максимальном разрешении, специально подобранные для профессионального использования в эдитах и контенте. Каждое изображение проходит отбор по качеству и эстетике.</p>
+            </div>
+          </div>
+          
+          <div class="numbered-item">
+            <div class="number">2</div>
+            <div class="number-content">
+              <h3>Эксклюзивные подборки</h3>
+              <p>Мы создаем уникальные коллекции, объединяя фото по темам, настроению и стилю. Это помогает экономить время на поиске и находить именно то, что нужно для вашего проекта.</p>
+            </div>
+          </div>
+          
+          <div class="numbered-item">
+            <div class="number">3</div>
+            <div class="number-content">
+              <h3>Сообщество творческих людей</h3>
+              <p>Присоединяйтесь к нашему сообществу эдиторов, фанатов и создателей контента. Получайте вдохновение, делитесь идеями и становитесь частью креативного движения.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Концепция бренда</h2>
+        <div class="brand-concept">
+          <div class="concept-grid">
+            <div class="concept-item">
+              <div class="concept-icon">
+                <i class="fas fa-lightbulb"></i>
+              </div>
+              <h3 class="concept-title">Идеи</h3>
+              <p class="concept-desc">Вдохновение для творчества и новые идеи для контента</p>
+            </div>
+            
+            <div class="concept-item">
+              <div class="concept-icon">
+                <i class="fas fa-gem"></i>
+              </div>
+              <h3 class="concept-title">Ценность</h3>
+              <p class="concept-desc">Качественный контент как ценность для творческого сообщества</p>
+            </div>
+            
+            <div class="concept-item">
+              <div class="concept-icon">
+                <i class="fas fa-bolt"></i>
+              </div>
+              <h3 class="concept-title">Энергия</h3>
+              <p class="concept-desc">Живая энергия современного цифрового творчества</p>
+            </div>
+            
+            <div class="concept-item">
+              <div class="concept-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <h3 class="concept-title">Сообщество</h3>
+              <p class="concept-desc">Объединяем эдиторов, фанатов и творческих людей</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Наши платформы</h2>
+        <div class="links">
+          <div class="link-card">
+            <div class="link-icon telegram">
+              <i class="fab fa-telegram"></i>
+            </div>
+            <h3 class="link-title">Telegram</h3>
+            <p class="link-desc">Свежие обновления, новости и эксклюзивный контент</p>
+            <a href="https://t.me/ideacashvibe" target="_blank" class="btn">Перейти</a>
+          </div>
+          
+          <div class="link-card">
+            <div class="link-icon pinterest">
+              <i class="fab fa-pinterest"></i>
+            </div>
+            <h3 class="link-title">Pinterest</h3>
+            <p class="link-desc">Большая коллекция фото и вдохновляющий контент</p>
+            <a href="https://pinterest.com/ideacashvibe" target="_blank" class="btn">Смотреть</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="disclaimer">
+        ⚠️ <strong>Дисклеймер:</strong> Все изображения взяты из открытых источников. 
+        Все права на изображения принадлежат их законным владельцам. 
+        Мы не претендуем на авторские права и не несем ответственности за использование изображений третьими лицами.
+        Контент предоставляется исключительно в образовательных и вдохновляющих целях.
+      </div>
+    </div>
+    
+    <div class="footer">
+      © 2024 ideacashvibe. Создано с ❤️ для творческого сообщества.
+    </div>
+  </div>
+
+  <script>
+    // Переключатель темы
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const icon = themeToggle.querySelector('i');
+
+    // Проверяем сохраненную тему
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      body.classList.add('dark-theme');
+      icon.className = 'fas fa-sun';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-theme');
+      
+      if (body.classList.contains('dark-theme')) {
+        icon.className = 'fas fa-sun';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        icon.className = 'fas fa-moon';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // Анимация появления элементов
+    document.addEventListener('DOMContentLoaded', function() {
+      const elements = document.querySelectorAll('.section, .link-card, .brand-concept, .numbered-item');
+      elements.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.7s ease';
+        
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, 400 + index * 200);
+      });
+    });
+  </script>
+</body>
+</html>
